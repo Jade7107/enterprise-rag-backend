@@ -1,0 +1,81 @@
+services:
+  web:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /app
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    env_file:
+      - ./src/.env
+    ports:
+       - "8000:8000"
+    depends_on:
+      - db
+      - redis
+    volumes:
+      - ./src/app:/app/app
+      - ./src/.env:/app/.env
+
+  worker:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /app
+    command: arq app.core.worker.settings.WorkerSettings
+    env_file:
+      - ./src/.env
+    environment:
+      - ARQ_UVLOOP_ENABLED=false  # <--- NEW FIX FOR WORKER CRASH
+    depends_on:
+      - db
+      - redis
+    volumes:
+      - ./src/app:/app/app
+      - ./src/.env:/app/.env
+
+  db:
+    image: postgres:13
+    env_file:
+      - ./src/.env
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    expose:
+      - "5432"
+
+  redis:
+    image: redis:alpine
+    volumes:
+      - redis-data:/data
+    expose:
+      - "6379"
+
+  create_superuser:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /app                 # <--- FIX 3
+    env_file:
+      - ./src/.env
+    depends_on:
+      - db
+      - web
+    command: python -m src.scripts.create_first_superuser
+    volumes:
+      - ./src:/app/src
+
+  pytest:
+    build: 
+      context: .
+      dockerfile: Dockerfile 
+    working_dir: /app                 # <--- FIX 4
+    env_file:
+      - ./src/.env
+    depends_on:
+      - db
+      - create_superuser
+      - redis
+    command: python -m pytest ./tests
+
+volumes:
+  postgres-data:
+  redis-data:

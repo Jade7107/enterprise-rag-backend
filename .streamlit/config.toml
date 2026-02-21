@@ -1,0 +1,15 @@
+[theme]
+# The main accent color (Soft blue)
+primaryColor = "#5E81AC"
+
+# The main background (Deep soothing slate)
+backgroundColor = "#2E3440"
+
+# The background for text input boxes and sidebars (Slightly lighter slate)
+secondaryBackgroundColor = "#3B4252"
+
+# The text color (Soft off-white to reduce eye strain)
+textColor = "#ECEFF4"
+
+# Clean, modern font
+font = "sans serif"
