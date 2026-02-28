@@ -4,7 +4,7 @@ A fully containerized, asynchronous Retrieval-Augmented Generation (RAG) archite
 
 # 🎥 60-Second Architecture Demo: Watch the fully containerized FastAPI backend, ChromaDB vector store, and Streamlit UI boot up and execute a grounded RAG query locally.
 
-<video src="https://github.com/Jade7107/enterprise-rag-backend/raw/refs/heads/main/demo.mp4" width="100%" controls></video>
+https://github.com/Jade7107/enterprise-rag-backend/raw/refs/heads/main/demo.mp4
 
 ## 🏗️ System Architecture
 
