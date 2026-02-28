@@ -2,6 +2,10 @@
 
 A fully containerized, asynchronous Retrieval-Augmented Generation (RAG) architecture designed to securely ingest, vectorize, and query PDF documents using local machine learning models. 
 
+# 🎥 60-Second Architecture Demo: Watch the fully containerized FastAPI backend, ChromaDB vector store, and Streamlit UI boot up and execute a grounded RAG query locally.
+
+<video src="demo.mp4" width="100%" controls></video>
+
 ## 🏗️ System Architecture
 
 This project is built with a microservices approach, completely isolated via Docker, ensuring reliable cross-container networking and resource management.
